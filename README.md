@@ -3,7 +3,12 @@
 Speed up data cleaning and analysis using common functions frequently used by Metro. 
 
 ## Installation 
+load the package: 
 
+```
+devtools::install_github("celinafg/kcm_analysis")
+library(kcmanalysis)
+```
 ## Usage 
 Italicized variables are OPTIONAL. 
 
