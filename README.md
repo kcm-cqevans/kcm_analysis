@@ -10,13 +10,13 @@ Italicized variables are OPTIONAL.
 ## rename_generic 
 Rename column values based on custom patterns. It accepts the following parameters: 
 
-| Syntax      | Type        | Description|
+| Variable      | Type        | Description|
 | ----------- | ----------- | -----------|
 | data      | DATAFRAME       |your data |
 |column |STRING |name of the column with values you want to change |
 |pattern |VECTOR| vector of strings that include the originalValueName = newValueName|
-| na_action | STRING | handle NA values with strings KEEP or REMOVE 
-| verbose | BOOLEAN | when TRUE, enables console descriptions of operations. logs all values changed | 
+| *na_action* | STRING | handle NA values with strings KEEP or REMOVE 
+| *verbose* | BOOLEAN | when TRUE, enables console descriptions of operations. logs all values changed | 
 
 ```
 # pass your own pattern here. make sure it's a vector, with a key:value pair. 
@@ -33,9 +33,12 @@ renamed_language <- rename_generic(data, column="userlanguage", pattern_replacem
 
 #### survey_reshape 
 Reshapes a dataframe from wide to long format. Accepts the following parameters: 
-- data (DATAFRAME): your data
-- pivot_cols (STRING) (VECTOR): If only choosing to pivot one column, use one string. If multiple columns, a vector of strings. 
-- 
+
+| Variable      | Type        | Description|
+| ----------- | ----------- | -----------|
+| svy_reshape_cols| VECTOR / STRING |  If only choosing to pivot one column, use one string. If multiple columns, a vector of strings. |
+| data | DATAFRAME| your data| 
+
 
 ```
 svy_reshape_cols <- c("screenreader", "userlanguage")
@@ -47,12 +50,16 @@ reshaped_survey <- survey_reshape(data, pivot_cols=svy_reshape_cols)
 
 #### survey_collapse
 Accepts the following parameters: 
-- data (DATAFRAME) = your data 
-- depvar (STRING) = dependent variable column name 
-- response (STRING) = response column name 
-- wgt (STRING) = weight column name 
-- *groupingvars* (VECTOR) = Columns used for additional grouping. NULL if no additional grouping is needed. 
-- *verbose* (BOOLEAN): when TRUE, enables console descriptions of operations
+
+| Variable      | Type        | Description|
+| ----------- | ----------- | -----------|
+| data | DATAFRAME| your data |
+| depvar | STRING | dependent variable column name |
+| response | STRING | response column name | 
+|wgt | STRING | weights column name |
+| *groupingvars* | VECTOR | Columns used for additional grouping. NULL if no additonal grouping is needed. |
+| *verbose* | BOOLEAN | when TRUE, enables console description of operations | 
+
 
 ```
 collapsed <- survey_collapse(data, depvar="zipcode", response="nonr_tr_freq", wgt = "weights2" )
