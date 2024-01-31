@@ -2,20 +2,21 @@
 
 Speed up data cleaning and analysis using common functions frequently used by Metro. 
 
-### Installation 
+## Installation 
 
-### Usage 
+## Usage 
 Italicized variables are OPTIONAL. 
 
-#### rename_generic 
+## rename_generic 
 Rename column values based on custom patterns. It accepts the following parameters: 
-  - data (DATAFRAME): your data 
-  - column (STRING): name of the column with values you want to change 
-  - pattern (VECTOR): vector of strings that include the originalValueName = newValueName
-  - *na_action* (STRING): handle NA values with the strings: 
-    - "keep" 
-    - "remove" 
-  - *verbose* (BOOLEAN): when TRUE, enables console descriptions of operations. logs all values changed. 
+
+| Syntax      | Type        | Description|
+| ----------- | ----------- | -----------|
+| data      | DATAFRAME       |your data |
+|column |STRING |name of the column with values you want to change |
+|pattern |VECTOR| vector of strings that include the originalValueName = newValueName|
+| na_action | STRING | handle NA values with strings KEEP or REMOVE 
+| verbose | BOOLEAN | when TRUE, enables console descriptions of operations. logs all values changed | 
 
 ```
 # pass your own pattern here. make sure it's a vector, with a key:value pair. 
