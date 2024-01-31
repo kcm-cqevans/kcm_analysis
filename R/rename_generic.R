@@ -6,6 +6,8 @@
 #' @param pattern_replacements A named vector with key:value pairs ex. userlanguage = language, ....
 #' @param na_action A character string specifying the action for NA values:
 #'                  "keep" (default), "remove", or a specific value for replacement.
+#'
+#' @param verbose Boolean indicating if detailed output should be printed.
 #' @import dplyr
 #' @import stringr
 #' @export

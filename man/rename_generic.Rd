@@ -21,6 +21,8 @@ rename_generic(
 
 \item{na_action}{A character string specifying the action for NA values:
 "keep" (default), "remove", or a specific value for replacement.}
+
+\item{verbose}{Boolean indicating if detailed output should be printed.}
 }
 \description{
 Rename Values in Column

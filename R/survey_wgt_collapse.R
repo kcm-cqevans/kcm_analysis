@@ -7,6 +7,9 @@
 #' @param grouping_vars Vector of strings of columns used for additional grouping, NULL if no additional grouping is needed.
 #' @param verbose Boolean indicating if detailed output should be printed.
 #' @import dplyr
+#' @import srvyr
+#' @import rlang
+#' @importFrom rlang .data
 #' @import survey
 #' @export
 survey_collapse <- function(data, depvar, response, wgt, grouping_vars = NULL, verbose = FALSE) {
@@ -19,7 +22,7 @@ survey_collapse <- function(data, depvar, response, wgt, grouping_vars = NULL, v
 
   # Preparing data for survey design
   survey_design <- data %>%
-    filter(!is.na(.[[depvar]]), !is.na(.[[response]])) %>%
+    filter(!is.na(.data[[depvar]]), !is.na(.data[[response]])) %>%
     as_survey_design(ids = 1, weights = .data[[wgt]])
 
   # Grouping and summarizing data
