@@ -9,7 +9,6 @@
 #' @import dplyr
 #' @import srvyr
 #' @import rlang
-#' @importFrom rlang .data
 #' @import survey
 #' @export
 survey_collapse <- function(data, depvar, response, wgt, grouping_vars = NULL, verbose = FALSE) {
@@ -22,7 +21,7 @@ survey_collapse <- function(data, depvar, response, wgt, grouping_vars = NULL, v
 
   # Preparing data for survey design
   survey_design <- data %>%
-    filter(!is.na(.data[[depvar]]), !is.na(.data[[response]])) %>%
+    filter(!is.na(.[[depvar]]), !is.na(.[[response]])) %>%
     as_survey_design(ids = 1, weights = .data[[wgt]])
 
   # Grouping and summarizing data
