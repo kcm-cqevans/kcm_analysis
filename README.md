@@ -3,8 +3,8 @@
 Speed up data cleaning and analysis using common functions frequently used by Metro. 
 
 ## Changelog
-2/25/24: fixed survey_collapse function 
-2/25/24L: added viz functions 
+- 2/25/24: fixed survey_collapse function 
+- 2/25/24L: added viz functions 
 
 ## Installation 
 load the package: 
