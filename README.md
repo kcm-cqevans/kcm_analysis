@@ -71,3 +71,12 @@ collapsed <- survey_collapse(data, depvar="zipcode", response="nonr_tr_freq", wg
 
 ```
 
+### Viz Functions 
+(based on functions written by Claire)
+1. viz_agree
+2. viz_dv_flip
+3. viz_dv_group
+4. viz_fonts
+5. viz_hist
+6. viz_hist_flip
+
