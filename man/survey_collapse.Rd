@@ -2,30 +2,33 @@
 % Please edit documentation in R/survey_wgt_collapse.R
 \name{survey_collapse}
 \alias{survey_collapse}
-\title{Collapse Survey Weights and Calculate Proportions}
+\title{Collapse survey data and compute proportions}
 \usage{
 survey_collapse(
   data,
-  depvar,
-  response,
-  wgt,
-  grouping_vars = NULL,
-  verbose = FALSE
+  depvar = NULL,
+  response = NULL,
+  wgt = NULL,
+  group_var = NULL
 )
 }
 \arguments{
-\item{data}{A dataframe containing survey data.}
+\item{data}{A data frame containing the survey data.}
 
-\item{depvar}{Name of the dependent variable column.}
+\item{depvar}{The column name representing the dependent variable, if not present in data.}
 
-\item{response}{Name of the response variable column.}
+\item{response}{The column name representing the response variable, if not present in data.}
 
-\item{wgt}{Name of the weight variable column.}
+\item{wgt}{The column name representing the weights, if not present in data.}
 
-\item{grouping_vars}{Vector of strings of columns used for additional grouping, NULL if no additional grouping is needed.}
+\item{group_var}{(Optional) The column name representing the grouping variable.
 
-\item{verbose}{Boolean indicating if detailed output should be printed.}
+#' @import survey
+#' @import srvyr}
+}
+\value{
+A summarized data frame with proportions of responses.
 }
 \description{
-Collapse Survey Weights and Calculate Proportions
+This function collapses survey data and computes proportions of responses for a given variable.
 }

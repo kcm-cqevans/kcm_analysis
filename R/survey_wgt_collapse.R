@@ -1,44 +1,47 @@
-#' Collapse Survey Weights and Calculate Proportions
+#' Collapse survey data and compute proportions
 #'
-#' @param data A dataframe containing survey data.
-#' @param depvar Name of the dependent variable column.
-#' @param response Name of the response variable column.
-#' @param wgt Name of the weight variable column.
-#' @param grouping_vars Vector of strings of columns used for additional grouping, NULL if no additional grouping is needed.
-#' @param verbose Boolean indicating if detailed output should be printed.
-#' @import dplyr
-#' @import srvyr
-#' @import rlang
-#' @import survey
+#' This function collapses survey data and computes proportions of responses for a given variable.
+#'
+#' @param data A data frame containing the survey data.
+#' @param depvar The column name representing the dependent variable, if not present in data.
+#' @param response The column name representing the response variable, if not present in data.
+#' @param wgt The column name representing the weights, if not present in data.
+#' @param group_var (Optional) The column name representing the grouping variable.
+#'
+#'#' @import survey
+#'#' @import srvyr
+#' @return A summarized data frame with proportions of responses.
 #' @export
-survey_collapse <- function(data, depvar, response, wgt, grouping_vars = NULL, verbose = FALSE) {
-  # Validate input data
-  required_cols <- c(depvar, response, wgt)
-  if (!is.null(grouping_vars)) {
-    required_cols <- c(required_cols, grouping_vars)
-  }
-  validate_df_cols(data, required_cols)
+#'
 
-  # Preparing data for survey design
-  survey_design <- data %>%
-    filter(!is.na(.[[depvar]]), !is.na(.[[response]])) %>%
-    as_survey_design(ids = 1, weights = .data[[wgt]])
-
-  # Grouping and summarizing data
-  group_by_cols <- if (!is.null(grouping_vars)) c(grouping_vars, depvar, response) else c(depvar, response)
-  collapsed_data <- survey_design %>%
-    group_by(across(all_of(group_by_cols))) %>%
-    summarize(prop = 100 * survey_mean(na.rm = TRUE)) %>%
-    filter(response %in% c(100, 1)) %>%
-    mutate(proplabel = paste0(round(prop, 1), "%")) %>%
-    ungroup() %>%
-    as.data.frame()
-
-  # Verbose output
-  if (verbose) {
-    message("Grouping by: ", paste(group_by_cols, collapse = ", "))
-    message("Calculated proportions for ", nrow(collapsed_data), " groups.")
+survey_collapse <- function(data, depvar = NULL, response = NULL, wgt = NULL, group_var = NULL) {
+  # Check if columns exist in data, if not, use the provided parameters
+  if (!all(c("depvar", "response", "wgt") %in% names(data))) {
+    if(is.null(depvar) || is.null(response) || is.null(wgt)) {
+      stop("missing depvar, response or wgt columns")
+    }
+  } else {
+    depvar <- "depvar"
+    response <- "response"
+    wgt <- "wgt"
   }
 
-  return(collapsed_data)
+  # Adjusted to directly use column names rather than data$column
+  if (!is.null(group_var)) {
+    data %>%
+      filter(!is.na(.data[[group_var]]), !is.na(.data[[depvar]]), !is.na(.data[[response]])) %>%
+      as_survey_design(ids = 1, weights = .data[[wgt]]) %>%
+      group_by(.data[[group_var]], .data[[depvar]], .data[[response]]) %>%
+      summarize(prop = 100 * survey_mean(variable = .data[[response]], na.rm = TRUE), .groups = 'drop') %>%
+      filter(.data[[response]] == 100 | .data[[response]] == 1) %>%
+      mutate(proplabel = paste0(round(prop, 1), "%"))
+  } else {
+    data %>%
+      filter(!is.na(.data[[depvar]]), !is.na(.data[[response]])) %>%
+      as_survey_design(ids = 1, weights = .data[[wgt]]) %>%
+      group_by(.data[[depvar]], .data[[response]]) %>%
+      summarize(prop = 100 * survey_mean(variable = .data[[response]], na.rm = TRUE), .groups = 'drop') %>%
+      filter(.data[[response]] == 100 | .data[[response]] == 1) %>%
+      mutate(proplabel = paste0(round(prop, 1), "%"))
+  }
 }
