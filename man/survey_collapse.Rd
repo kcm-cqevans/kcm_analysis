@@ -21,10 +21,7 @@ survey_collapse(
 
 \item{wgt}{The column name representing the weights, if not present in data.}
 
-\item{group_var}{(Optional) The column name representing the grouping variable.
-
-#' @import survey
-#' @import srvyr}
+\item{group_var}{(Optional) The column name representing the grouping variable.}
 }
 \value{
 A summarized data frame with proportions of responses.

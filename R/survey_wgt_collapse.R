@@ -8,8 +8,10 @@
 #' @param wgt The column name representing the weights, if not present in data.
 #' @param group_var (Optional) The column name representing the grouping variable.
 #'
-#'#' @import survey
-#'#' @import srvyr
+#' @import survey
+#' @import rlang
+#' @importFrom srvyr as_survey_design
+#' @importFrom srvyr survey_mean
 #' @return A summarized data frame with proportions of responses.
 #' @export
 #'
