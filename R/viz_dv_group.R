@@ -26,6 +26,7 @@
 #' @import ggplot2
 #' @return A ggplot object representing the grouped dot-and-whisker plot.
 #' @export
+
 viz_dv_group <- function(data,
                         depvar = "depvar",
                         outcome_var = "prop",
